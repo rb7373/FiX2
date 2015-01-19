@@ -1,0 +1,15 @@
+.container
+	h1 {{topic.title}}
+	.raw
+		h3(ng-show="topic.featured") Featured
+		h3 Summary {{topic.Summary}}
+	.raw
+		p {{topic.content}}
+	.raw
+		h3 Practice
+		a(href="/topics/practices/{{topic.topic}}") {{topic.title}}
+	.raw
+		h6 Tags
+		div(ng-repeat="tag in topic.tags") {{tag}}
+
+
