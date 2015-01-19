@@ -7,21 +7,21 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
     });
     $routeProvider
         .when('/', {
-            templateUrl: '/partials/main/main',
-            controller: 'fixMainCtrl'
+            templateUrl: '/partials/partials/mainPartial',
+            controller: 'mainController'
         })
 
         .when('/topics', {
-            templateUrl: '/partials/partials/topics/topicListPartial',
+            templateUrl: '/partials/partials/topicListPartial',
             controller: 'topicListController'
         })
 
         .when('/topics/:id', {
-            templateUrl: '/partials/partials/topics/topicDetailsPartial',
+            templateUrl: '/partials/partials/topicDetailsPartial',
             controller: 'topicDetailsController'
         })
         .when('/topics/practices/:topic', {
-            templateUrl: '/partials/partials/topics/practices/practicePartial',
+            templateUrl: '/partials/partials/quizPartial',
             controller: 'quizController'
         })
 });
