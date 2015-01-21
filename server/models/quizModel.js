@@ -23,7 +23,7 @@ function createDefaultQuices(){
     		console.log("No hay quices");
 			quizModel.create({
 				title: "Angular quiz",
-				topics: ["newton laws"],
+				topics: ["newton first law"],
 				questions: [
 					{
 						_id: 1,

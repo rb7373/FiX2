@@ -5,7 +5,7 @@ var quiz = require("../controllers/quizController");
 
 module.exports = function(app) {
 
-
+	app.get('/api/topics/practices', quiz.getQuices);
 	app.get('/api/topics/practices/:topic', quiz.getQuizByTopic);
 	app.get('/api/topics', topics.getTopics);
 	app.get('/api/topics/:id', topics.getTopicsById);
