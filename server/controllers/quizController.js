@@ -12,5 +12,6 @@ exports.getQuizByTopic = function(req, res) {
   console.log(req.params.topic);
   quizMongoose.findOne({topics:req.params.topic}).exec(function(err, quiz) {
     res.send(quiz);
+    //res.sendStatus(404);
   })
 }

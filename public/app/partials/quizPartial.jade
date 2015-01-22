@@ -3,4 +3,4 @@
 		.panel-heading
 			h1 Quiz: {{quiz.title}}
 		.panel-body.text-justify
-			div(quiz-questions-directive)
+			div(ng-include="'/partials/partials/quizQuestionsPartial'")

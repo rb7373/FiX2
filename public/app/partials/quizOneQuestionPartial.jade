@@ -1,0 +1,14 @@
+.raw
+	h4 {{currentPage}}) {{currentQuestion.question}}
+.raw
+	br
+	form
+		div(ng-repeat='choice in currentQuestion.choices')
+			input(name ='{{currentQuestion._id}}' type='radio', value='{{$index}}')
+			label {{choice}}
+			br
+
+
+
+		
+
