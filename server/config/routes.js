@@ -17,11 +17,9 @@ module.exports = function(app) {
 
 	});
 
-	app.post('/login', auth.authenticate);
-	app.post('/logout', function(req, res){
-		req.logout();
-		res.end();
-	});
+	app.post('/authenticate', auth.authenticateUser);
+	app.post('/signin', auth.signin);
+	app.get('/me', auth.ensureAuthorized, auth.getProfile);
 
 	app.all('/api/*', function(req, res){
 		res.sendStatus(404);

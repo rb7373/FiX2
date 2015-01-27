@@ -4,7 +4,7 @@
 	br
 	form
 		div(ng-repeat='choice in currentQuestion.choices')
-			input(name ='{{currentQuestion._id}}' type='radio', value='{{$index}}')
+			input(name ='{{currentQuestion._id}}' value='{{$index}}', type='radio', ng-model ='currentQuestion.selectedAnswer')
 			label {{choice}}
 			br
 

@@ -1,57 +1,88 @@
-var passport = require('passport');
+var userModel     = require('../models/userModel');
+var jwt        = require("jsonwebtoken");
 
-exports.authenticate = function(req, res, next) {
-  /*  var auth = passport.authenticate('local', function(err, user) {
-      console.log(user.userName);
-      console.log(user.password);
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        res.send({
-          success: false
-        })
-      }
-      req.logIn(user, function(err) {
+exports.authenticateUser = function(req, res, next) {
+    userModel.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
         if (err) {
-          return next(err);
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            });
+        } else {
+            if (user) {
+               res.json({
+                    type: true,
+                    data: user,
+                    token: user.token
+                }); 
+            } else {
+                res.json({
+                    type: false,
+                    data: "Incorrect email/password"
+                });    
+            }
         }
-        res.send({
-          success: true,
-          user: user
-        });
-      })
-    })
-    auth(req, res, next);*/
-
-  var user = {
-    firstName: 'Ruben',
-    lastName: 'Abarca',
-    userName: 'ruben'
-  };
-
-  res.send({
-    success: true,
-    user: user
-  });
+    });
 };
 
-exports.requiresApiLogin = function(req, res, next) {
-  if (!req.isAuthenticated()) {
-    res.status(403);
-    res.end();
-  } else {
-    next();
-  }
+
+exports.signin = function(req, res) {
+    userModel.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
+        if (err) {
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            });
+        } else {
+            if (user) {
+                res.json({
+                    type: false,
+                    data: "User already exists!"
+                });
+            } else {
+                var newUserModel = new userModel();
+                newUserModel.email = req.body.email;
+                newUserModel.password = req.body.password;
+                newUserModel.save(function(err, user) {
+                    user.token = jwt.sign(user, process.env.JWT_SECRET);
+                    user.save(function(err, userCreated) {
+                        res.json({
+                            type: true,
+                            data: userCreated,
+                            token: userCreated.token
+                        });
+                    });
+                })
+            }
+        }
+    });
 };
 
-exports.requiresRole = function(role) {
-  return function(req, res, next) {
-    if (!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
-      res.status(403);
-      res.end();
+exports.getProfile = function(req, res, next) {
+    userModel.findOne({token: req.token}, function(err, user) {
+        if (err) {
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            });
+        } else {
+            res.json({
+                type: true,
+                data: user
+            });
+        }
+    });
+};
+
+exports.ensureAuthorized = function (req, res, next) {
+    var bearerToken;
+    var bearerHeader = req.headers["authorization"];
+    if (typeof bearerHeader !== 'undefined') {
+        var bearer = bearerHeader.split(" ");
+        bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
     } else {
-      next();
+        res.send(403);
     }
-  }
-}
+};

@@ -1,12 +1,16 @@
 .container-fluid
 	.raw
 		.col-md-9
-			div(ng-include="'/partials/partials/quizOneQuestionPartial'")
+			.raw
+				div(ng-include="'/partials/partials/quizOneQuestionPartial'")
+				pager.pager(total-items="totalItems", ng-model="currentPage", ng-change="pageChanged(currentPage)")
 		.col-md-3
-			.panel.panel-default.img-rounded.panel-body.text-justify
-				p Total Questions: {{totalQuestions}}
-				p Current question: {{currentPage}}
+			.raw
+				br
+			.raw
+				.panel.panel-default.img-rounded.panel-body.text-justify
+					div(ng-include="'/partials/partials/quizStatus'")
 	.raw
 		.col-md-12
 			hr
-			pagination.pagination-sm(total-items='totalItems', ng-change="pageChanged(currentPage)", ng-model='currentPage', max-size='maxSize', boundary-links='true', rotate='false', num-pages='numPages')
+			pagination.pagination-sm(total-items='totalItems', ng-change="pageChanged(currentPage)", ng-model='currentPage', max-size='maxSize', boundary-links='true', rotate='false', num-pages='numPages', previous-text='‹', next-text='›', first-text='«', last-text='»')

@@ -3,9 +3,6 @@ var stylus = require('stylus');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var passport = require("passport");
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
 
 module.exports = function(app, config) {
 
@@ -37,17 +34,11 @@ module.exports = function(app, config) {
 
 	app.use(express.static(config.rootPath + '/public'));
 
-	app.use(cookieParser());
-
-	app.use(session({
-	  secret: 'fix-app',
-	  resave: false,
-	  saveUninitialized: true
-	}));
-
-	app.use(passport.initialize());
-
-	app.use(passport.session());
-
+	app.use(function(req, res, next) {
+	    res.setHeader('Access-Control-Allow-Origin', '*');
+	    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+	    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	    next();
+	});
 
 };

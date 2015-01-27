@@ -1,4 +1,4 @@
-angular.module('app').controller('navBarLoginController', function($scope, $http, identityService, notifierService, authService, $location) {
+angular.module('app').controller('navBarLoginController', function($rootScope, $localStorage, $scope, $http, identityService, notifierService, authService, $location) {
 
 	$scope.identity = identityService;
 	

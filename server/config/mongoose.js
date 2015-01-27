@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var userModel = require('../models/userModel');
 var topicModel = require('../models/topicModel');
 var quizModel = require('../models/quizModel');
 
@@ -12,7 +11,6 @@ module.exports = function(config) {
         console.log('FiX db opened');
     });
     
-    userModel.createDefaultUsers();
     topicModel.createDefaultTopics();
     quizModel.createDefaultQuices();
 };

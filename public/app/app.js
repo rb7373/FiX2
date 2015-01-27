@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']);
+angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ngStorage', 'angular-loading-bar']);
 
 angular.module('app').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode({

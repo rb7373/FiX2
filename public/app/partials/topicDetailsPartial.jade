@@ -1,7 +1,8 @@
 .container
-	h1 {{topic.title}}
+	h1
+		i.fa.fa-star.star-featured-topic(ng-show="topic.featured", aria-hidden='true') &nbsp; 
+		| {{topic.title}} 
 	.raw
-		h3(ng-show="topic.featured") Featured
 		h3 Summary {{topic.Summary}}
 	.raw
 		p {{topic.content}}
@@ -9,7 +10,11 @@
 		h3 Practice
 		a(href="/topics/practices/{{topic.topic}}") {{topic.title}}
 	.raw
-		h6 Tags
-		div(ng-repeat="tag in topic.tags") {{tag}}
+		br
+		h4 Tags
+		ul.fa-ul
+			li(ng-repeat="tag in topic.tags")
+				i.fa.fa-check &nbsp; 
+					| {{tag}}
 
 
